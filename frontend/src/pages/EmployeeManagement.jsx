@@ -605,7 +605,7 @@ const EmployeeManagement = () => {
       {/* Add / Edit Employee Modal - Premium Redesigned Spacing & Layout */}
       {(showAddModal || editEmployee) && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 max-w-2xl w-full relative space-y-6 shadow-2xl my-8 animate-fade-in-up">
+          <div className="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 max-w-4xl w-full relative space-y-6 shadow-2xl my-8 animate-fade-in-up">
             
             {/* Close Button */}
             <button
@@ -635,143 +635,156 @@ const EmployeeManagement = () => {
               </div>
             )}
 
-            <form onSubmit={editEmployee ? handleEditSubmit : handleAddSubmit} className="space-y-6">
+            <form onSubmit={editEmployee ? handleEditSubmit : handleAddSubmit} className="space-y-5">
               
-              {/* Photo Upload Container */}
-              <div className="space-y-2">
-                <span className="block text-xs font-bold text-slate-400 uppercase tracking-wider">Profile Photo</span>
+              {/* Row 1: Photo & Personal Details side-by-side */}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 
-                <div className="flex flex-col sm:flex-row items-center gap-4 p-5 bg-slate-50 border border-dashed border-slate-300 rounded-2xl hover:bg-slate-100/50 transition-colors">
-                  {formData.profilePhoto ? (
-                    <div className="relative shrink-0">
-                      <img 
-                        src={formData.profilePhoto} 
-                        alt="Profile Preview" 
-                        className="w-20 h-20 rounded-2xl object-cover border border-slate-200 shadow-md ring-2 ring-white"
+                {/* Photo Upload Area */}
+                <div className="lg:col-span-1 space-y-2">
+                  <span className="block text-xs font-bold text-slate-400 uppercase tracking-wider">Profile Photo</span>
+                  
+                  <div className="flex flex-col items-center justify-center p-4 h-[165px] bg-slate-50 border border-dashed border-slate-350 rounded-2xl hover:bg-slate-100/50 transition-colors relative">
+                    {formData.profilePhoto ? (
+                      <div className="relative">
+                        <img 
+                          src={formData.profilePhoto} 
+                          alt="Profile Preview" 
+                          className="w-24 h-24 rounded-2xl object-cover border border-slate-200 shadow-md ring-2 ring-white"
+                        />
+                        <button
+                          type="button"
+                          onClick={removePhoto}
+                          className="absolute -top-2 -right-2 bg-rose-500 text-white p-1.5 rounded-full hover:bg-rose-600 transition-all shadow-md active:scale-95"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center gap-2">
+                        <div className="w-12 h-12 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-400">
+                          <ImageIcon className="w-6 h-6" />
+                        </div>
+                        <label className="px-3 py-1.5 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 rounded-lg text-[11px] font-bold cursor-pointer transition-all shadow-2xs">
+                          Upload Photo
+                          <input 
+                            type="file" 
+                            accept="image/*" 
+                            onChange={handleFileChange} 
+                            className="hidden" 
+                          />
+                        </label>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Personal Information */}
+                <div className="lg:col-span-2 space-y-3">
+                  <span className="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider block">Personal Information</span>
+                  
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="space-y-1">
+                      <label className="block text-[11px] font-bold text-slate-600">Full Name</label>
+                      <input
+                        type="text"
+                        required
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        className="input-field text-xs py-2 w-full"
+                        placeholder="John Doe"
                       />
-                      <button
-                        type="button"
-                        onClick={removePhoto}
-                        className="absolute -top-2 -right-2 bg-rose-500 text-white p-1.5 rounded-full hover:bg-rose-600 transition-all shadow-md active:scale-95"
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="block text-[11px] font-bold text-slate-600">Blood Group</label>
+                      <select
+                        value={formData.bloodGroup}
+                        onChange={(e) => setFormData({ ...formData, bloodGroup: e.target.value })}
+                        className="input-field text-xs py-2 w-full font-semibold"
                       >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
+                        {['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'].map((bg) => (
+                          <option key={bg} value={bg}>{bg}</option>
+                        ))}
+                      </select>
                     </div>
-                  ) : (
-                    <div className="w-20 h-20 rounded-2xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-400 shrink-0">
-                      <ImageIcon className="w-8 h-8" />
-                    </div>
-                  )}
+                  </div>
 
-                  <div className="flex-1 text-center sm:text-left space-y-1.5">
-                    <label className="inline-flex items-center gap-2 px-4 py-2.5 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 rounded-xl text-xs font-bold cursor-pointer transition-all shadow-xs active:scale-[0.98]">
-                      <Upload className="w-4 h-4 text-indigo-600" />
-                      Upload Photo from Device
-                      <input 
-                        type="file" 
-                        accept="image/*" 
-                        onChange={handleFileChange} 
-                        className="hidden" 
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="space-y-1">
+                      <label className="block text-[11px] font-bold text-slate-600">Date of Birth</label>
+                      <input
+                        type="date"
+                        value={formData.dateOfBirth}
+                        onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
+                        className="input-field text-xs py-2 w-full text-slate-700"
                       />
-                    </label>
-                    <p className="text-[10px] text-slate-400">PNG, JPG or JPEG format. File size must be under 2MB.</p>
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="block text-[11px] font-bold text-slate-600">Date of Joining</label>
+                      <input
+                        type="date"
+                        required
+                        value={formData.joiningDate}
+                        onChange={(e) => setFormData({ ...formData, joiningDate: e.target.value })}
+                        className="input-field text-xs py-2 w-full text-slate-700"
+                      />
+                    </div>
                   </div>
                 </div>
+
               </div>
 
-              {/* Personal Details Section */}
-              <div className="space-y-4 pt-2 border-t border-slate-100">
-                <span className="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider block">Personal Information</span>
+              {/* Row 2: Corporate Assignments in 3 columns */}
+              <div className="space-y-3 pt-4 border-t border-slate-100">
+                <span className="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider block">Corporate Assignments & Security</span>
                 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <label className="block text-xs font-bold text-slate-600">Full Name</label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="input-field text-sm w-full"
-                      placeholder="John Doe"
-                    />
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="block text-xs font-bold text-slate-600">Blood Group</label>
-                    <select
-                      value={formData.bloodGroup}
-                      onChange={(e) => setFormData({ ...formData, bloodGroup: e.target.value })}
-                      className="input-field text-sm w-full font-semibold"
-                    >
-                      {['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'].map((bg) => (
-                        <option key={bg} value={bg}>{bg}</option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <label className="block text-xs font-bold text-slate-600">Date of Birth</label>
-                    <input
-                      type="date"
-                      value={formData.dateOfBirth}
-                      onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
-                      className="input-field text-sm w-full text-slate-700"
-                    />
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="block text-xs font-bold text-slate-600">Date of Joining</label>
-                    <input
-                      type="date"
-                      required
-                      value={formData.joiningDate}
-                      onChange={(e) => setFormData({ ...formData, joiningDate: e.target.value })}
-                      className="input-field text-sm w-full text-slate-700"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Corporate & Ops Section */}
-              <div className="space-y-4 pt-4 border-t border-slate-100">
-                <span className="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider block">Corporate Assignments</span>
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <label className="block text-xs font-bold text-slate-600">Corporate Email</label>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  <div className="space-y-1">
+                    <label className="block text-[11px] font-bold text-slate-600">Corporate Email</label>
                     <input
                       type="email"
                       required
                       disabled={!!editEmployee}
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="input-field text-sm w-full disabled:bg-slate-50 disabled:opacity-75 disabled:border-slate-200"
+                      className="input-field text-xs py-2 w-full disabled:bg-slate-50 disabled:opacity-75"
                       placeholder="john@company.com"
                     />
                   </div>
 
-                  <div className="space-y-1.5">
-                    <label className="block text-xs font-bold text-slate-600">Contact Number</label>
+                  <div className="space-y-1">
+                    <label className="block text-[11px] font-bold text-slate-600">Contact Number</label>
                     <input
                       type="text"
                       required
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="input-field text-sm w-full"
+                      className="input-field text-xs py-2 w-full"
                       placeholder="9876543210"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="block text-[11px] font-bold text-slate-600">Emergency Contact</label>
+                    <input
+                      type="text"
+                      value={formData.emergencyContact}
+                      onChange={(e) => setFormData({ ...formData, emergencyContact: e.target.value })}
+                      className="input-field text-xs py-2 w-full"
+                      placeholder="Emergency contact info"
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <label className="block text-xs font-bold text-slate-600">Department</label>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="space-y-1">
+                    <label className="block text-[11px] font-bold text-slate-600">Department</label>
                     <select
                       value={formData.department}
                       onChange={(e) => setFormData({ ...formData, department: e.target.value })}
-                      className="input-field text-sm w-full font-semibold"
+                      className="input-field text-xs py-2 w-full font-semibold"
                     >
                       {departments.map((dept) => (
                         <option key={dept} value={dept}>{dept}</option>
@@ -779,44 +792,31 @@ const EmployeeManagement = () => {
                     </select>
                   </div>
 
-                  <div className="space-y-1.5">
-                    <label className="block text-xs font-bold text-slate-600">Designation / Title</label>
+                  <div className="space-y-1">
+                    <label className="block text-[11px] font-bold text-slate-600">Designation / Title</label>
                     <input
                       type="text"
                       required
                       value={formData.designation}
                       onChange={(e) => setFormData({ ...formData, designation: e.target.value })}
-                      className="input-field text-sm w-full"
+                      className="input-field text-xs py-2 w-full"
                       placeholder="Senior Engineer"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <label className="block text-xs font-bold text-slate-600">Emergency Contact</label>
-                    <input
-                      type="text"
-                      value={formData.emergencyContact}
-                      onChange={(e) => setFormData({ ...formData, emergencyContact: e.target.value })}
-                      className="input-field text-sm w-full"
-                      placeholder="Kin contact details"
                     />
                   </div>
                 </div>
               </div>
 
-              {/* Address Section */}
-              <div className="space-y-4 pt-4 border-t border-slate-100">
-                <div className="space-y-1.5">
-                  <label className="block text-xs font-bold text-slate-600">Residential Address</label>
-                  <textarea
-                    rows="2"
+              {/* Row 3: Residential Address (Single line to save height) */}
+              <div className="space-y-3 pt-4 border-t border-slate-100">
+                <div className="space-y-1">
+                  <label className="block text-[11px] font-bold text-slate-600">Residential Address</label>
+                  <input
+                    type="text"
                     value={formData.address}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                    className="input-field text-sm w-full resize-none leading-relaxed"
-                    placeholder="Residential street address details..."
-                  ></textarea>
+                    className="input-field text-xs py-2.5 w-full"
+                    placeholder="Residential street, city, state address details..."
+                  />
                 </div>
               </div>
 
@@ -829,11 +829,11 @@ const EmployeeManagement = () => {
                     setEditEmployee(null);
                     resetForm();
                   }}
-                  className="btn-secondary text-xs font-bold px-5"
+                  className="btn-secondary text-xs font-bold py-2 px-5"
                 >
                   Cancel
                 </button>
-                <button type="submit" className="btn-primary text-xs font-bold px-6 shadow-md shadow-indigo-600/10">
+                <button type="submit" className="btn-primary text-xs font-bold py-2 px-6 shadow-md shadow-indigo-600/10">
                   {editEmployee ? 'Update Profile' : 'Register Employee'}
                 </button>
               </div>
