@@ -39,8 +39,9 @@ const Login = () => {
   return (
     <div className="min-h-screen bg-slate-50 bg-grid-pattern text-slate-900 flex items-center justify-center p-6 relative overflow-hidden selection:bg-indigo-500 selection:text-white">
       {/* Premium Animated Mesh Gradients */}
-      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-indigo-300/30 blur-3xl animate-blob-1 pointer-events-none"></div>
-      <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] rounded-full bg-pink-300/25 blur-3xl animate-blob-2 pointer-events-none"></div>
+      <div className="absolute top-[-12%] left-[-12%] w-[600px] h-[600px] rounded-full bg-indigo-500/35 blur-[70px] animate-blob-1 pointer-events-none"></div>
+      <div className="absolute bottom-[-12%] right-[-12%] w-[700px] h-[700px] rounded-full bg-pink-500/30 blur-[80px] animate-blob-2 pointer-events-none"></div>
+      <div className="absolute top-[35%] left-[55%] w-[450px] h-[450px] rounded-full bg-blue-500/20 blur-[65px] animate-blob-1 pointer-events-none"></div>
 
       <div className="w-full max-w-md space-y-6 relative z-10">
         {/* Animated Brand Header */}
