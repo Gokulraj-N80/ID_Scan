@@ -77,6 +77,84 @@ const importData = async () => {
         status: 'Inactive',
         totalPoints: 590,
         bloodGroup: 'AB-'
+      },
+      {
+        employeeId: 'EMP005',
+        name: 'Rajesh Kumar',
+        email: 'rajesh@company.com',
+        password: 'Password@123',
+        phone: '9876543214',
+        department: 'Engineering',
+        designation: 'DevOps Engineer',
+        joiningDate: new Date('2024-03-10'),
+        status: 'Active',
+        totalPoints: 820,
+        bloodGroup: 'O+'
+      },
+      {
+        employeeId: 'EMP006',
+        name: 'Divya Sharma',
+        email: 'divya@company.com',
+        password: 'Password@123',
+        phone: '9876543215',
+        department: 'Operations',
+        designation: 'Product Owner',
+        joiningDate: new Date('2023-08-15'),
+        status: 'Active',
+        totalPoints: 910,
+        bloodGroup: 'A-'
+      },
+      {
+        employeeId: 'EMP007',
+        name: 'Vikram Singh',
+        email: 'vikram@company.com',
+        password: 'Password@123',
+        phone: '9876543216',
+        department: 'Engineering',
+        designation: 'QA Lead',
+        joiningDate: new Date('2023-05-12'),
+        status: 'Active',
+        totalPoints: 710,
+        bloodGroup: 'B-'
+      },
+      {
+        employeeId: 'EMP008',
+        name: 'Shalini Sen',
+        email: 'shalini@company.com',
+        password: 'Password@123',
+        phone: '9876543217',
+        department: 'Finance',
+        designation: 'Finance Manager',
+        joiningDate: new Date('2023-01-20'),
+        status: 'Active',
+        totalPoints: 860,
+        bloodGroup: 'O-'
+      },
+      {
+        employeeId: 'EMP009',
+        name: 'Suresh Raina',
+        email: 'suresh@company.com',
+        password: 'Password@123',
+        phone: '9876543218',
+        department: 'Engineering',
+        designation: 'Data Scientist',
+        joiningDate: new Date('2024-06-01'),
+        status: 'Active',
+        totalPoints: 620,
+        bloodGroup: 'AB+'
+      },
+      {
+        employeeId: 'EMP010',
+        name: 'Nivedha Krish',
+        email: 'nivedha@company.com',
+        password: 'Password@123',
+        phone: '9876543219',
+        department: 'Marketing',
+        designation: 'Content Specialist',
+        joiningDate: new Date('2022-09-15'),
+        status: 'Inactive',
+        totalPoints: 480,
+        bloodGroup: 'B+'
       }
     ];
 
