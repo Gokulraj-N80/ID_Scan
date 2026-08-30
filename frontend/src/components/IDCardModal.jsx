@@ -98,6 +98,12 @@ const IDCardModal = ({ employee, onClose }) => {
               font-size: 12px;
               color: #64748b;
             }
+            .blood {
+              font-size: 11px;
+              color: #e11d48;
+              font-weight: 800;
+              margin-top: 2px;
+            }
             .empid {
               background: #e0e7ff;
               color: #3730a3;
@@ -149,6 +155,7 @@ const IDCardModal = ({ employee, onClose }) => {
               <div class="name">${employee.name}</div>
               <div class="designation">${employee.designation}</div>
               <div class="dept">${employee.department} Department</div>
+              <div class="blood">Blood Group: ${employee.bloodGroup || 'O+'}</div>
               <div class="empid">${employee.employeeId}</div>
             </div>
 
@@ -255,7 +262,7 @@ const IDCardModal = ({ employee, onClose }) => {
             <div>
               <h4 className="text-lg font-extrabold text-slate-900">{employee.name}</h4>
               <p className="text-xs text-indigo-600 font-bold">{employee.designation}</p>
-              <p className="text-[11px] text-slate-500">{employee.department} Dept.</p>
+              <p className="text-[11px] text-slate-500">{employee.department} Dept. • <span className="text-rose-600 font-extrabold">Blood {employee.bloodGroup || 'O+'}</span></p>
             </div>
 
             <span className="px-3 py-0.5 bg-indigo-50 text-indigo-700 font-mono font-bold text-xs rounded-full border border-indigo-200">

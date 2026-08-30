@@ -12,7 +12,8 @@ import {
   Calendar, 
   Briefcase, 
   QrCode,
-  Lock
+  Lock,
+  Heart
 } from 'lucide-react';
 
 const PublicVerification = () => {
@@ -170,6 +171,14 @@ const PublicVerification = () => {
                   <span className="font-medium text-xs uppercase tracking-wider">Phone</span>
                 </div>
                 <span className="font-semibold text-slate-800">{employee?.phone}</span>
+              </div>
+
+              <div className="flex items-center justify-between py-2 border-b border-slate-100">
+                <div className="flex items-center gap-2 text-slate-500">
+                  <Heart className="w-4 h-4 text-rose-500" />
+                  <span className="font-medium text-xs uppercase tracking-wider">Blood Group</span>
+                </div>
+                <span className="font-extrabold text-rose-600 font-mono">{employee?.bloodGroup || 'O+'}</span>
               </div>
 
               <div className="flex items-center justify-between py-2">
