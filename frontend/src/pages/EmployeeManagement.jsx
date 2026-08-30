@@ -681,27 +681,27 @@ const EmployeeManagement = () => {
 
                 {/* Personal Information */}
                 <div className="lg:col-span-2 space-y-3">
-                  <span className="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider block">Personal Information</span>
+                  <span className="text-xs font-extrabold text-slate-400 uppercase tracking-wider block">Personal Information</span>
                   
                   <div className="grid grid-cols-2 gap-3">
                     <div className="space-y-1">
-                      <label className="block text-[11px] font-bold text-slate-600">Full Name</label>
+                      <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider">Full Name</label>
                       <input
                         type="text"
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="input-field text-xs py-2 w-full"
+                        className="input-field w-full"
                         placeholder="John Doe"
                       />
                     </div>
 
                     <div className="space-y-1">
-                      <label className="block text-[11px] font-bold text-slate-600">Blood Group</label>
+                      <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider">Blood Group</label>
                       <select
                         value={formData.bloodGroup}
                         onChange={(e) => setFormData({ ...formData, bloodGroup: e.target.value })}
-                        className="input-field text-xs py-2 w-full font-semibold"
+                        className="input-field w-full font-semibold"
                       >
                         {['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'].map((bg) => (
                           <option key={bg} value={bg}>{bg}</option>
@@ -712,23 +712,23 @@ const EmployeeManagement = () => {
 
                   <div className="grid grid-cols-2 gap-3">
                     <div className="space-y-1">
-                      <label className="block text-[11px] font-bold text-slate-600">Date of Birth</label>
+                      <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider">Date of Birth</label>
                       <input
                         type="date"
                         value={formData.dateOfBirth}
                         onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
-                        className="input-field text-xs py-2 w-full text-slate-700"
+                        className="input-field w-full text-slate-700"
                       />
                     </div>
 
                     <div className="space-y-1">
-                      <label className="block text-[11px] font-bold text-slate-600">Date of Joining</label>
+                      <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider">Date of Joining</label>
                       <input
                         type="date"
                         required
                         value={formData.joiningDate}
                         onChange={(e) => setFormData({ ...formData, joiningDate: e.target.value })}
-                        className="input-field text-xs py-2 w-full text-slate-700"
+                        className="input-field w-full text-slate-700"
                       />
                     </div>
                   </div>
@@ -738,41 +738,41 @@ const EmployeeManagement = () => {
 
               {/* Row 2: Corporate Assignments in 3 columns */}
               <div className="space-y-3 pt-4 border-t border-slate-100">
-                <span className="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider block">Corporate Assignments & Security</span>
+                <span className="text-xs font-extrabold text-slate-400 uppercase tracking-wider block">Corporate Assignments & Security</span>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                   <div className="space-y-1">
-                    <label className="block text-[11px] font-bold text-slate-600">Corporate Email</label>
+                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider">Corporate Email</label>
                     <input
                       type="email"
                       required
                       disabled={!!editEmployee}
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="input-field text-xs py-2 w-full disabled:bg-slate-50 disabled:opacity-75"
+                      className="input-field w-full disabled:bg-slate-50 disabled:opacity-75"
                       placeholder="john@company.com"
                     />
                   </div>
 
                   <div className="space-y-1">
-                    <label className="block text-[11px] font-bold text-slate-600">Contact Number</label>
+                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider">Contact Number</label>
                     <input
                       type="text"
                       required
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="input-field text-xs py-2 w-full"
+                      className="input-field w-full"
                       placeholder="9876543210"
                     />
                   </div>
 
                   <div className="space-y-1">
-                    <label className="block text-[11px] font-bold text-slate-600">Emergency Contact</label>
+                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider">Emergency Contact</label>
                     <input
                       type="text"
                       value={formData.emergencyContact}
                       onChange={(e) => setFormData({ ...formData, emergencyContact: e.target.value })}
-                      className="input-field text-xs py-2 w-full"
+                      className="input-field w-full"
                       placeholder="Emergency contact info"
                     />
                   </div>
@@ -780,11 +780,11 @@ const EmployeeManagement = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div className="space-y-1">
-                    <label className="block text-[11px] font-bold text-slate-600">Department</label>
+                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider">Department</label>
                     <select
                       value={formData.department}
                       onChange={(e) => setFormData({ ...formData, department: e.target.value })}
-                      className="input-field text-xs py-2 w-full font-semibold"
+                      className="input-field w-full font-semibold"
                     >
                       {departments.map((dept) => (
                         <option key={dept} value={dept}>{dept}</option>
@@ -793,13 +793,13 @@ const EmployeeManagement = () => {
                   </div>
 
                   <div className="space-y-1">
-                    <label className="block text-[11px] font-bold text-slate-600">Designation / Title</label>
+                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider">Designation / Title</label>
                     <input
                       type="text"
                       required
                       value={formData.designation}
                       onChange={(e) => setFormData({ ...formData, designation: e.target.value })}
-                      className="input-field text-xs py-2 w-full"
+                      className="input-field w-full"
                       placeholder="Senior Engineer"
                     />
                   </div>
@@ -809,12 +809,12 @@ const EmployeeManagement = () => {
               {/* Row 3: Residential Address (Single line to save height) */}
               <div className="space-y-3 pt-4 border-t border-slate-100">
                 <div className="space-y-1">
-                  <label className="block text-[11px] font-bold text-slate-600">Residential Address</label>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider">Residential Address</label>
                   <input
                     type="text"
                     value={formData.address}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                    className="input-field text-xs py-2.5 w-full"
+                    className="input-field w-full"
                     placeholder="Residential street, city, state address details..."
                   />
                 </div>

@@ -60,14 +60,14 @@ const AdminDashboard = () => {
 
   // Data for Charts
   const employeeStatusData = [
-    { name: 'Active', value: stats?.activeEmployees || 0, color: '#4f46e5' }, // indigo-600
-    { name: 'Inactive', value: stats?.inactiveEmployees || 0, color: '#f43f5e' }, // rose-500
+    { name: 'Active', value: stats?.activeEmployees || 0, colorUrl: 'url(#activeGrad)' },
+    { name: 'Inactive', value: stats?.inactiveEmployees || 0, colorUrl: 'url(#inactiveGrad)' },
   ];
 
   const taskStatusData = [
-    { name: 'Pending', count: stats?.pendingTasks || 0, fill: '#f59e0b' },
-    { name: 'In Progress', count: stats?.inProgressTasks || 0, fill: '#3b82f6' },
-    { name: 'Completed', count: stats?.completedTasks || 0, fill: '#10b981' },
+    { name: 'Pending', count: stats?.pendingTasks || 0, fillUrl: 'url(#pendingGrad)' },
+    { name: 'In Progress', count: stats?.inProgressTasks || 0, fillUrl: 'url(#progressGrad)' },
+    { name: 'Completed', count: stats?.completedTasks || 0, fillUrl: 'url(#completeGrad)' },
   ];
 
   return (
@@ -89,7 +89,7 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      {/* Streamlined Stats Card Grid - 4 Premium Cards instead of 8 cluttered ones */}
+      {/* Streamlined Stats Card Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Card 1: Active vs Total Staff */}
         <div className="card border-slate-200 p-5 space-y-3">
@@ -156,61 +156,85 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      {/* Visual Analytics */}
+      {/* Visual Analytics with Redesigned Premium Gradients & Fit Size */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         {/* Pie Chart Card */}
-        <div className="card border-slate-200 p-5 space-y-4">
+        <div className="card border-slate-200 p-5 space-y-3">
           <div className="flex items-center justify-between pb-2 border-b border-slate-100">
             <h3 className="font-extrabold text-sm text-slate-900 flex items-center gap-2">
               <Users className="w-4 h-4 text-indigo-600" />
               Workforce Distribution
             </h3>
           </div>
-          <div className="h-56">
+          <div className="h-44">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
+                <defs>
+                  <linearGradient id="activeGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#6366f1" />
+                    <stop offset="100%" stopColor="#4f46e5" />
+                  </linearGradient>
+                  <linearGradient id="inactiveGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#f43f5e" />
+                    <stop offset="100%" stopColor="#e11d48" />
+                  </linearGradient>
+                </defs>
                 <Pie
                   data={employeeStatusData}
                   cx="50%"
                   cy="50%"
-                  innerRadius={60}
-                  outerRadius={80}
+                  innerRadius={50}
+                  outerRadius={65}
                   paddingAngle={5}
                   dataKey="value"
                 >
                   {employeeStatusData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
+                    <Cell key={`cell-${index}`} fill={entry.colorUrl} />
                   ))}
                 </Pie>
                 <Tooltip 
                   contentStyle={{ backgroundColor: '#ffffff', borderColor: '#e2e8f0', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}
                 />
-                <Legend iconSize={10} wrapperStyle={{ fontSize: '11px' }} />
+                <Legend iconSize={8} wrapperStyle={{ fontSize: '11px' }} />
               </PieChart>
             </ResponsiveContainer>
           </div>
         </div>
 
         {/* Bar Chart Card */}
-        <div className="card border-slate-200 p-5 space-y-4">
+        <div className="card border-slate-200 p-5 space-y-3">
           <div className="flex items-center justify-between pb-2 border-b border-slate-100">
             <h3 className="font-extrabold text-sm text-slate-900 flex items-center gap-2">
               <TrendingUp className="w-4 h-4 text-emerald-600" />
               Task Breakdown
             </h3>
           </div>
-          <div className="h-56">
+          <div className="h-44">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={taskStatusData}>
+                <defs>
+                  <linearGradient id="pendingGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#fbbf24" />
+                    <stop offset="100%" stopColor="#f59e0b" />
+                  </linearGradient>
+                  <linearGradient id="progressGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#60a5fa" />
+                    <stop offset="100%" stopColor="#3b82f6" />
+                  </linearGradient>
+                  <linearGradient id="completeGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#34d399" />
+                    <stop offset="100%" stopColor="#10b981" />
+                  </linearGradient>
+                </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
                 <XAxis dataKey="name" stroke="#94a3b8" fontSize={11} />
                 <YAxis stroke="#94a3b8" fontSize={11} allowDecimals={false} />
                 <Tooltip 
                   contentStyle={{ backgroundColor: '#ffffff', borderColor: '#e2e8f0', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}
                 />
-                <Bar dataKey="count" radius={[6, 6, 0, 0]}>
+                <Bar dataKey="count" radius={[6, 6, 0, 0]} maxBarSize={45}>
                   {taskStatusData.map((entry, index) => (
-                    <Cell key={`bar-${index}`} fill={entry.fill} />
+                    <Cell key={`bar-${index}`} fill={entry.fillUrl} />
                   ))}
                 </Bar>
               </BarChart>
