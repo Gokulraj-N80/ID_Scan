@@ -10,6 +10,25 @@ const EmployeeMyTasks = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState('All');
+  const [activeDropdownTaskId, setActiveDropdownTaskId] = useState(null);
+
+  const getStatusStyle = (status) => {
+    switch (status) {
+      case 'Completed': return 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100/80';
+      case 'In Progress': return 'bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100/80';
+      case 'Cancelled': return 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200/80';
+      default: return 'bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100/80';
+    }
+  };
+
+  const getStatusDotColor = (status) => {
+    switch (status) {
+      case 'Completed': return 'bg-emerald-500';
+      case 'In Progress': return 'bg-blue-500';
+      case 'Cancelled': return 'bg-slate-500';
+      default: return 'bg-amber-500';
+    }
+  };
 
   useEffect(() => {
     fetchMyTasks();
@@ -115,17 +134,46 @@ const EmployeeMyTasks = () => {
                   <span>Due: {new Date(task.dueDate).toLocaleDateString()}</span>
                 </div>
 
-                <div className="flex items-center gap-2">
+                 <div className="flex items-center gap-2">
                   <span className="text-xs text-slate-500 font-bold">Status:</span>
-                  <select
-                    value={task.status}
-                    onChange={(e) => handleStatusChange(task._id, e.target.value)}
-                    className="bg-slate-50 border border-slate-300 text-xs font-bold rounded-xl px-2.5 py-1.5 text-slate-800 focus:ring-indigo-500/20"
-                  >
-                    <option value="Pending">Pending</option>
-                    <option value="In Progress">In Progress</option>
-                    <option value="Completed">Completed</option>
-                  </select>
+                  <div className="relative">
+                    <button
+                      onClick={() => setActiveDropdownTaskId(activeDropdownTaskId === task._id ? null : task._id)}
+                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold border transition-all ${getStatusStyle(task.status)}`}
+                    >
+                      <span className={`w-2 h-2 rounded-full ${getStatusDotColor(task.status)}`}></span>
+                      {task.status}
+                    </button>
+                    
+                    {activeDropdownTaskId === task._id && (
+                      <>
+                        <div 
+                          className="fixed inset-0 z-10" 
+                          onClick={() => setActiveDropdownTaskId(null)}
+                        />
+                        <div className="absolute right-0 bottom-full mb-2 z-20 w-36 bg-white border border-slate-200/90 rounded-2xl shadow-xl p-1.5 space-y-0.5 animate-fade-in-up">
+                          {['Pending', 'In Progress', 'Completed'].map((status) => (
+                            <button
+                              key={status}
+                              type="button"
+                              onClick={() => {
+                                handleStatusChange(task._id, status);
+                                setActiveDropdownTaskId(null);
+                              }}
+                              className={`w-full text-left px-3 py-2 text-xs font-bold rounded-xl transition-all flex items-center gap-2 ${
+                                task.status === status 
+                                  ? 'bg-indigo-50 text-indigo-700' 
+                                  : 'hover:bg-slate-50 text-slate-700'
+                              }`}
+                            >
+                              <span className={`w-1.5 h-1.5 rounded-full ${getStatusDotColor(status)}`}></span>
+                              {status}
+                            </button>
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
