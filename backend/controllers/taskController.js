@@ -136,7 +136,9 @@ export const updateTaskStatus = async (req, res) => {
 
       const updatedTask = await task.save();
 
-      let performer = req.user.role === 'admin' ? `Admin: ${req.user.name}` : `Employee: ${req.user.name}`;
+      let performer = (req.user && req.user.role === 'admin')
+        ? `Admin: ${req.user.name}`
+        : (req.user ? `Employee: ${req.user.name}` : 'System');
       
       await ActivityLog.create({
         action: 'Updated Task Status',
